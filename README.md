@@ -1,200 +1,142 @@
-# 🤖 Agentic Quick Start
+# 🔋 Batteries-Included Development DevPod
 
-Welcome to the Agentic Quick Start repository - your opinionated guide to getting started with agentic engineering. 🚀
+This branch contains a **fully-loaded** development environment with Docker-in-Docker, Node.js, Claude Flow, AI Swarm orchestration, and automatic Claude Code launch capabilities.
 
-## ⚡ Quick Start
-
-Launch a ready-to-use workspace in seconds using [DevPod](https://devpod.sh/):
-
-**Motivation**
-
-- Share your set up across CodeSpaces and/or your HomeLab
-  This includes:
-- Favored VS Code extensions
-- Shared secrets (e.g. Claude API Key e.g. ANTHROPIC_API_KEY) from an external provider such as Github Codespaces Secrets or 1password
-
-**Install DevPod in a Code space**
-
-- Clone this repo
-- Create a codespace from it
-- Install DevPod
-
-```
-  curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && sudo install -c -m 0755 devpod /usr/local/bin && rm -f devpod
-```
-
-**Basic Development Environment:**
+## 🚀 Quick Start with DevPod
 
 ```bash
-devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/basic
+# Launch the batteries-included environment
+devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/batteries-included
+
+# Alternative: Using git URL fragment
+devpod up https://github.com/mrkingsleyobi/agentic-quickstart.git#workspace/batteries-included
 ```
 
-**Security-Focused Environment:**
+## ⚡ One-Command Launch
+
+After the DevPod starts, simply run:
 
 ```bash
-devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/security
+./start.sh
 ```
 
-**Full-Loaded Agentic-focused Dev Environment:**
+This will:
 
-```bash
-devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/battery-included
-```
+- ✅ Check and install all prerequisites
+- 🌊 Initialize claude-flow (with optional --force flag)
+- 🖥️ Create a tmux session with phonetic naming (alpha, bravo, charlie...)
+- 🚀 Launch Claude Code with proper MCP configuration
+- 📊 Provide session management commands
 
-## 🧠 What is Agentic Engineering?
+## 📦 What's Included
 
-Agentic engineering is the practice of building, deploying, and managing AI agents that can autonomously perform tasks, make decisions, and interact with various systems. This repository provides best practices and ready-to-use configurations to accelerate your journey into this emerging field.
+- **🖼️ Base Image**: Debian-based development container
+- **🐳 Docker-in-Docker**: Build and run containers within your development environment
+- **🟢 Node.js**: Full Node.js development environment
+- **🐍 Python**: Python development environment
+- **🛠️ Development Tools** (auto-installed on container creation):
+  - tmux: Terminal multiplexer for managing multiple sessions
+  - claude-code: Anthropic's official CLI for Claude
+  - GitHub CLI (gh): Command-line interface for GitHub
+  - UV: Fast Python package manager written in Rust
+  - claude-monitor: Monitor and track Claude API usage
+  - **🌊 claude-flow@alpha**: AI swarm orchestration and SPARC methodology
+  - **🐝 ruv-swarm**: Distributed AI agent coordination
+  - **📈 ccusage**: Claude Code usage tracking and analytics
+- **🧬 VS Code Extensions**:
+  - Roo Cline: AI-powered coding assistant
+  - GistFS: Access GitHub Gists directly in VS Code
+  - GitHub Copilot: AI pair programming
+  - GitHub Copilot Chat: Conversational AI assistance
+  - Claude Code: Anthropic's official VS Code extension for Claude
+  - Claude Code Extension: Enhanced Claude Code cost tracking and features
 
-## 📋 Prerequisites
+## ✨ Features
 
-**For DevPod.sh (Recommended):**
+- Runs with privileged access to support Docker operations
+- Configured for the `vscode` user
+- Persistent container (won't shutdown on disconnect)
+- Automatic tool installation with graceful fallback and detailed installation report
+- Installation report saved to `.devcontainer/installation-report.md` for troubleshooting
+- If automatic installation fails during container startup, run manually: `bash .devcontainer/install-tools.sh`
+
+## 📋 Requirements
 
 - [DevPod CLI](https://devpod.sh/docs/getting-started/install)
 - Docker Desktop or Docker Engine
+- Active GitHub Copilot subscription (for Copilot features)
 
-**For Manual Setup:**
+## 🎯 Using the Start Script
 
-- Docker or Podman installed
-- VS Code with Dev Containers extension
-- Git
-- Basic understanding of containerization
+The `start.sh` script provides an interactive, batteries-included launch experience:
 
-## 🛠️ Alternative Setup Methods
+### Features
 
-### Manual VS Code Setup
+- **Prerequisite Checking**: Automatically verifies all required tools are installed
+- **Interactive Initialization**: Choose between force initialization, normal initialization, or skip
+- **Smart Session Management**: Uses phonetic alphabet naming (alpha, bravo, charlie...) to avoid conflicts
+- **MCP Configuration Detection**: Automatically detects and uses `.mcp.json` if present
+- **Graceful Error Handling**: Provides helpful troubleshooting tips if something goes wrong
+- **Tmux Integration**: Launches Claude Code in a detached tmux session for persistence
 
-1. **Clone a specific branch**
+### Usage
 
-   ```bash
-   # For basic development
-   git clone -b workspace/basic https://github.com/mrkingsleyobi/agentic-quickstart
+```bash
+# Run the start script
+./start.sh
 
-   # For security-focused development
-   git clone -b workspace/security https://github.com/mrkingsleyobi/agentic-quickstart
+# Choose initialization option when prompted:
+# [y] - Force reinitialize (overwrites existing config)
+# [n] - Normal initialization (preserves existing config)
+# [s] - Skip initialization
 
-   # For battery-included development
-   git clone -b workspace/battery-included https://github.com/mrkingsleyobi/agentic-quickstart
-   ```
-
-2. **Open in VS Code**
-
-   - Open the cloned folder in VS Code
-   - Install the Dev Containers extension if needed
-   - Click "Reopen in Container" when prompted
-
-3. **Start Building**
-   - All tools and dependencies are pre-installed
-   - Begin developing your agentic applications
-
-## 🎯 Core Principles
-
-### 1. 🌐 Remote-First Development
-
-**All coding is performed remotely in isolated environments. No running on local.**
-
-- Use containerized development environments (DevPods)
-- Ensures consistency across team members
-- Eliminates "works on my machine" issues
-- Provides clean separation between development and personal environments
-
-### 2. 🏗️ Agent-Centric Architecture
-
-**Design systems with autonomous agents as first-class citizens.**
-
-- Build modular, composable agent components
-- Implement clear agent boundaries and responsibilities
-- Use standardized communication protocols between agents
-- Design for scalability from single agent to multi-agent swarms
-
-### 3. 📈 Continuous Learning and Adaptation
-
-**Agents should evolve and improve through interaction and feedback.**
-
-- Implement feedback loops for agent performance
-- Use versioning for agent behaviors and models
-- Track agent decisions and outcomes for analysis
-- Enable A/B testing of agent strategies
-
-## 📁 Repository Structure
-
-This repository uses a branch-based approach for different DevPod configurations:
-
-**Main Branches:**
-
-- `main` - Documentation and project overview
-- `devpods-documentation` - Comprehensive DevPods documentation
-
-**Workspace Branches:**
-
-- `workspace/basic` - General-purpose development environment with Docker-in-Docker
-- `workspace/security` - Security research environment with Node.js tools
-- `workspace/battery-included` - Full-loaded Agentic Dev tools with Claude Code, CCusage, Node.js and others
-
-Each DevPod branch contains:
-
-```
-├── .devcontainer/
-│   └── devcontainer.json    # DevContainer configuration
-├── README.md                # Branch-specific documentation
-└── .gitignore              # Standard gitignore
+# Choose whether to attach to the tmux session immediately or later
 ```
 
-## 🐳 DevPods
+### Tmux Commands
 
-DevPods are our implementation of containerized development environments. Each DevPod is available as a separate branch that can be instantly launched using DevPod.sh.
+Once launched, use these commands to manage your session:
 
-**Available DevPods:**
+- **Attach to session**: `tmux attach -t [session-name]`
+- **Detach from session**: `Ctrl+b`, then `d`
+- **List all sessions**: `tmux ls`
+- **Kill a session**: `tmux kill-session -t [session-name]`
 
-| DevPod            | Branch                       | Use Case                                  | Launch Command                                                                             |
-| ----------------- | ---------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------ |
-| Basic Development | `workspace/basic`            | General development with Docker-in-Docker | `devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/basic`            |
-| Security-Focused  | `workspace/security`         | Security research and Node.js development | `devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/security`         |
-| Agentic-Focused   | `workspace/battery-included` | Full-loaded Agentic tools for development | `devpod up https://github.com/mrkingsleyobi/agentic-quickstart@workspace/battery-included` |
+## 🛠️ Tool Installation
 
-**Benefits:**
+The development tools are automatically installed when the container starts via `.devcontainer/install-tools.sh`. The enhanced script now includes claude-flow, ruv-swarm, and ccusage with intelligent detection to skip already-installed components.
 
-- 🚀 Instant workspace setup
-- 🔒 Isolated environments
-- 📦 Pre-configured tools
-- 🤝 Consistent across teams
+### Manual Installation
 
-## ✅ Best Practices
+If any tools fail to install automatically, you can run the installation script manually:
 
-1. **Always develop in containers** - Never install development dependencies on your local machine
-2. **Document your agents** - Clear documentation of agent capabilities and limitations
-3. **Test agent interactions** - Implement comprehensive testing for multi-agent scenarios
-4. **Monitor agent behavior** - Use logging and observability tools
-5. **Version everything** - Agent code, configurations, and training data
+```bash
+bash .devcontainer/install-tools.sh
+```
 
-## 🤝 Contributing
+This will:
 
-We welcome contributions! Please ensure:
+- Attempt to install all missing tools
+- Generate a detailed report at `.devcontainer/installation-report.md`
+- Provide manual installation instructions for any tools that fail
 
-1. All code is developed within a DevPod
-2. Follow the established patterns and principles
-3. Include documentation for new features
-4. Test thoroughly before submitting
+### Viewing Installation Status
 
-## 🗺️ Future Roadmap
+To check which tools were successfully installed:
 
-- Agent templates and scaffolding tools
-- Multi-agent orchestration examples
-- Performance monitoring dashboards
-- Agent communication protocols
-- Security best practices guide
+```bash
+cat .devcontainer/installation-report.md
+```
 
-## 📄 License
+## 🔧 Manual VS Code Usage
 
-[License information to be added]
+If you prefer to use VS Code directly:
 
-## 💬 Support
+1. Clone this branch: `git clone -b workspace/basic https://github.com/mrkingsleyobi/agentic-quickstart`
+2. Open in VS Code
+3. Install the Dev Containers extension
+4. Click "Reopen in Container" when prompted
 
-For questions and support:
+## 📚 Learn More
 
-- Open an issue in this repository
-- Check existing documentation
-- Join our community in [GitHub Discussions](https://github.com/mrkingsleyobi/agentic-quickstart/discussions)
-
----
-
-**Remember**: The future of software development is agentic. Start building with the right foundation! 🏆
+For more information about the Agentists project, visit the [main branch](https://github.com/mrkingsleyobi/agentic-quickstart).
