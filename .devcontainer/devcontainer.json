@@ -1,12 +1,14 @@
 {
-	"name": "Node.js",
+	"name": "Security-Focused DevPod",
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
 	"customizations": {
 		"vscode": {
 			"settings": {},
 			"extensions": [
 				"bierner.markdown-mermaid",
-				"shd101wyy.markdown-preview-enhanced"
+				"shd101wyy.markdown-preview-enhanced",
+				"anthropic.claude-code",
+				"codeflow-studio.claude-code-extension"
 			]
 		}
 	},
@@ -17,5 +19,5 @@
 			"onAutoForward": "notify"
 		}
 	},
-	"postCreateCommand": "npm install -g npm@latest && yarn install"
+	"postCreateCommand": "bash .devcontainer/install-tools.sh && npm install -g npm@latest && yarn install"
 }
