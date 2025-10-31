@@ -15,10 +15,12 @@
 				"vsls-contrib.gistfs",
 				"github.copilot",
 				"github.copilot-chat",
-				"anthropic.claude-code"
+				"anthropic.claude-code",
+				"codeflow-studio.claude-code-extension",
+				"suzuki0430.ccusage-vscode"
 			]
 		}
 	},
-	"postCreateCommand": "tmux new-session -d -s claude-code 'claude-code start --open-browser=false'",
+	"postCreateCommand": "bash .devcontainer/install-tools.sh",
 	"shutdownAction": "none"
 }
