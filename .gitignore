@@ -51,3 +51,6 @@ venv/
 env/
 .Python
 .devcontainer/installation-report.md
+
+# devpod
+devpod/
